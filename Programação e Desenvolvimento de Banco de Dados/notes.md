@@ -145,7 +145,7 @@ Aqui temos uma lista de novas entradas que devemos nos atentar:
         <li>D → Define a quantidade de dados após a virgula, seu valor máximo é 30 e é condicionado ao tipo de dado DOUBLE / FLOAT.</li>
         <li>UNSIGNED → não aceita numeros negativos (menores que 0).</li>
         <li>ZEROFILL → preenche com a quantidade apontada de zeros à esquerda e, por padrão, recebe o atributo UNSIGNED.</li>
-        <li>[ ] → aplica-se á partes opcionais da definição dos tipos.</li>
+        <li> [ ] → aplica-se á partes opcionais da definição dos tipos.</li>
         <li>SMALLINT [M][UNSIGNED][ZEROFILL] → Aplica-se aos valores inteiros (integer) e compreende o range -32768 à 32767. Caso utilizado junto ao UNSIGNED vai e 0 à 65535.</li>
         <li>INT [M][UNSIGNED][ZEROFILL] → análogo ao anterior, porém compreendendo um intervalo maior, de -2147483648 à 2147483647. Caso sem negativos 0 à 4294967295.</li>
         <li>BIGINT [M][UNSIGNED][ZEROFILL] → segue como os demais porém com um range de -9223372036854775808 à 9223372036854775807.</li>
