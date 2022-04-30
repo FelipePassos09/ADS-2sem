@@ -127,7 +127,7 @@
 </table>
 Aqui temos uma lista de novas entradas que devemos nos atentar:
     <li>NOT NULL | NULL
-        <ul>Ao se especificar NULL permitimos que o campo possa ser 'vazio', caso utilizemos NOT NULL o campo deve, pobrigatóriamente, conter algum valor.</ul>
+        <ul>Ao se especificar NULL permitimos que o campo possa ser 'vazio', caso utilizemos NOT NULL o campo deve, obrigatóriamente, conter algum valor.</ul>
     </li>
     <li>DEFAULT value
         <ul>Define um valor padrão para o campo caso nenhuma informação tenha sido passada.</ul>
@@ -157,7 +157,7 @@ Aqui temos uma lista de novas entradas que devemos nos atentar:
         ponto flutuante de precisão dupla. 
         -1,7976931348623157E+308 a -2,2250738585072014E-
         308,0 
-        <li>Sinônimo: DOUBLE PRECISION.</li>
+        Sinônimo: DOUBLE PRECISION.</li>
         <li>DATE →
         MySQL exibe no formato 'YYYY-MM-DD'
         Permite números ou strings</li>
@@ -179,4 +179,113 @@ Aqui temos uma lista de novas entradas que devemos nos atentar:
         NULO, ou vazio.
         Armazenado como inteiro pelo banco</li>
     </p>
+</p>
+<h2>DML - Manipulação de Dados</h2>
+<p>
+    <li>INSERT
+        <ul>Permite adicionar novas linhas ou registros em uma tabela existente.<br />INSERT INTO nome_tabela (col1, col2) VALUES(15, 2);<br />INSERT INTO nome_tabela (col1, col2) VALUES(15, 2),(1,3);</ul>
+    </li>
+    <li>UPDATE
+        <ul>Atualiza colunas de linhas existentes na tabela nomeada com novos valores (assemelha-se ao FROM). <br />Pode ser aplicado á mais de uma tabela, porém nesses casos não é possivel utilizar o WHERE junto à ORDER BY.</ul>
+    </li>
+    <li>SET
+        <ul>Indica auis colunas modificar e os valores que devem ser fornecidos (assemelha-se ao SELECT).</ul>
+    </li>
+    <li>LIMIT
+        <ul>Permite limitar uma quantidade de ocorrências que serão atingidas pelo UPDATE.</ul>
+    </ul>
+    <li>DELETE
+        <ul>Permite deletar registros de uma tabela com base nos critérios apontados via WHERE.</ul>
+    </li>
+    <li>FIRST ou AFTER 
+        <ul>nome_coluna: adicionar uma coluna 
+        a uma posição específica dentro de uma linha da 
+        tabela. O padrão é na última linha.
+        </ul>
+    </li>
+    <li>CHANGE
+        <ul>Permite alterar um atributo tanto seu nome e alterar seu tipo e configurações.</ul>
+    </li>
+    <li>MODIFY
+        <ul>Permite modificar o atributo, seu tipo e características de dados, porém não o renomeia.</ul>
+    </li>
+    <li>RENAME
+        <ul>Permite renomear um atributo, porém mantendo as caracteríticas inerentes aos dados contidos.</ul>
+    </li>
+    <li>ALTER TABLE
+        <ul>Pode receber ADD, CHANGE, DROP, RENAME. É destinado à alteração estrutural da tabela como colunas, tipos, inclusão ou remoção de um novo atributo/ coluna. </ul>
+    </li>
+    <li>DROP
+        <ul></ul>
+    </li>
+    É semper importante setar o WHERE quando forem ser realizados UPDATES, de modo a controlar o que será alterado nos dados.
+</p>
+<h2>Criando Relacionamentos</h2>
+<p>
+<h3>CONSTRAINTS</h3>
+<p>Permitem definir os relacionamentos entre as tabelas</p>
+<h4>Criando uma Chave Primaria</h4>
+<table>
+    <tr>
+        <td>CREATE TABLE pessoa  (<br />
+        id int NOT NULL PRIMARY KEY,<br />
+        nome varchar(255) NOT NULL,<br />
+        sobrenome varchar(255),<br />
+        idade int );</td>
+        <td>Aqui criamos a tabela definindo seus atributos e colunas.</td>
+    </tr>
+    <tr>
+        <td>ALTER TABLE pessoa<br />
+        DROP PRIMARY KEY;</td>
+        <td>Aqui nós excluímos a chave primaria 'id', porém mantemos o valor. No caso apenas removemos essa característica do atributo.</td>
+    </tr>
+    <tr>
+        <td>ALTER TABLE pessoa<br />
+        ADD CONSTRAINT PK_pessoa PRIMARY KEY (id, sobrenome);</td>
+        <td>Por fim, através do ALTER, criamos uma nova chave primaria composta utilizando o 'id' junto ao 'sobrenome'. É imporrtante ressaltar que o parâmetro da constraint 'PK_pessoa' se refere á um indice que será criado para listar essa condição, não pode ser utilizado o nome de um atributo existente na tabela.</td>
+    </tr>
+</table>
+<h4>Criando uma Chave Estrangeira</h4>
+<table>
+    <tr>
+        <td>
+            ALTER TABLE nome_tabela<br />
+            ADD [CONSTRAINT [símbolo]] FOREIGN KEY<br />
+            [index_nome] (index_col_nome, ...)<br />
+            REFERENCES nome_tabela (index_col_nome,...)<br />
+            [ON DELETE referências]<br />
+            [ON UPDATE referências]<br />
+        </td>
+        <td>Diferente do que ocorre com as chaves primarias, as chaves estrangeiras recebem alguns argumentos a mais para especificar suas ligações, nesse caso també precisamos definir algumas características para essa chave a fim de estabelecer as ações desencadeadas pela mesma.</td>
+    </tr>
+</table>
+<li>FOREIGN KEY
+    <ul>Se refere á chave estrangeira propriamente dita, ela pode levar um nome(index) para que seja listada pelo banco.</ul>
+</li>
+<li>REFERENCES
+    <ul>É o conjunto de referências que definirão a chave estrangeira como qual o atributo ela receberá, quais ações ela desencadeará e quais restrições ela definirá.</ul>
+</li>
+<li>ON DELETE
+    <ul>Define os comportamentos a partir de uma ação de exclusão na tabela</ul>
+</li>
+<li>ON UPDATE
+    <ul>Define os comportamentos a partir de uma ação de exclusão na tabela quando</ul>
+</li>
+<li>RESTRICT
+    <ul>Rejeita a operação de alteração ou exclusão da tabela pai</ul>
+</li>
+<li>CASCADE
+    <ul>Permite excluir ou alterar a linha da tabela pai em função da tabela filha e vice e versa.</ul>
+</li>
+<li>SET NULL
+    <ul>Exclui ou atualiza as informaçoes da tabela pai e define como null os valores de chave estrangeira para a tabela filha.</ul>
+</li>
+<li>TRUNCATE
+    <ul>Esvazia completamente uma tabela ou atributo porém mantém suas características e/ou atributos. Diferente do DELETE, o truncate limpa o espaço de armazenamento e também é mais performatico ao realizar a deleção dos dados.</ul>
+</li>
+</p>
+<h2>Consultas Avançadas</h2>
+<h3>JOIN, INNER JOIN e LEFT/RIGHT JOIN</h3>
+<p>
+    As instruções JOIN são destinadas à unir duas ou mais tabelas a partir de uma consulta. Basicamente elas estabelecem as referencias a partir de um select e unem em uma nova instância os dados a partir de uma chave primaria ou 
 </p>
