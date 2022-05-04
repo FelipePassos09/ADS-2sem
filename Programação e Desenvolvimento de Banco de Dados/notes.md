@@ -287,5 +287,44 @@ Aqui temos uma lista de novas entradas que devemos nos atentar:
 <h2>Consultas Avançadas</h2>
 <h3>JOIN, INNER JOIN e LEFT/RIGHT JOIN</h3>
 <p>
-    As instruções JOIN são destinadas à unir duas ou mais tabelas a partir de uma consulta. Basicamente elas estabelecem as referencias a partir de um select e unem em uma nova instância os dados a partir de uma chave primaria ou 
+    As instruções JOIN são destinadas à unir duas ou mais tabelas a partir de uma consulta. Basicamente elas estabelecem as referencias a partir de um select e unem em uma nova instância os dados a partir da paridade de chaves primarias e .
+    <li>INNER
+        <ul>Esta instrução traz apenas os dados que estão dentro da intersecção de ambas as tabelas, ou seja, em que haja a relação correta de chaves em ambas as tabelas.</ul>
+    </li>
+    <li>LEFT / RIGHT
+        <ul>Esta instrução realiza a junção externa, nesse caso retornando os resultados mesmo que não haja a paridade de chaves, retornando as linhas vazias de acordo com o parâmetro utilizado (LEFT ou RIGHT)</ul>
+    </li>
+</p>
+<h2>Consultas com Funções</h2>
+<p>
+    <li>COUNT
+        <ul>Permite realizar uma contagem a partir de um SELECT. Se utilizado o DISTINCT ele também desconsiderará as repetições de ocorr~encias na coluna definida.</ul>
+    </li>
+    <li>MIN / MAX
+        <ul>Permite retornar o menor e maior valor da coluna e tabela alvo</ul>
+    </li>
+    <li>AVG
+        <ul>Permite retornar o valor médio da coluna e tabela alvo</ul>
+    </li>
+    <li>GROUP BY
+        <ul>Agrupa os resultados a partir de uma coluna, somando os resultados a partir dos valores dessa coluna, retornando apenas um registro com o total referente ao grupo.</ul>
+    </li>
+    <li>AS
+        <ul>Permite retornar em um atributo personalizado o resultado da instrução.</ul>
+    </li>
+    <li>ON
+        <ul>Permite definir a paridade que será levada em consideração no JOIN.</ul>
+    </li>
+</p>
+<h2>Consultas Combinadas</h2>
+<p>Podemos realizar o aninhamento de consultas, para isso utilizamos um conectivo como IN, NOT IN
+    <li>IN
+        <ul>Define uma relação de pertenciamento á instrução, ou seja, ao setarmos dentro de um WHERE que o valor resultado do SELECT deve IN dentro de outro SELECT, isso significa que no resultado final retornará apenas os valores que pertenção á ambos os resultados.</ul>
+    </ul>
+    <li>NOT IN
+        <ul>Assim como no anterior essa instrução define o NÃO pertencimento .</ul>
+    </ul>
+    <h3>Operadores Matemáticos</h3>
+    <p>Usamos operadores matemáticos para realizar análises lógicas e retornar o resultado esperado, nesse caso precisamos sempre usar a instrução SOME depois do operador para poder retornar corretamente o resultado.
+    </p>
 </p>
