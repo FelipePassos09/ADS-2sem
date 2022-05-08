@@ -328,3 +328,104 @@ Aqui temos uma lista de novas entradas que devemos nos atentar:
     <p>Usamos operadores matemáticos para realizar análises lógicas e retornar o resultado esperado, nesse caso precisamos sempre usar a instrução SOME depois do operador para poder retornar corretamente o resultado.
     </p>
 </p>
+<h2>Automação em BD</h2>
+<h3>VIEWS</h3>
+<p>Para otimizar as consultas podemos utiizar as VIEWS, que consistem em modelos predefinidos pelo usuário de consultas, neste caso criamos a VIEW a fim de acelerar o processo de consultas ou salvar resultados otimizados para tratamento futuro.
+    <h4>Operações com Views</h4>
+    <p>
+       <li>Criando uma VIEW:
+            <ul>
+                CREATE VIEW [nome_da_VIEW] AS
+                SELECT [coluna]
+                FROM [tabela]
+                WHERE [condições];
+            </ul>
+       </li>
+       <li>Selecionando uma VIEW:
+            <ul>SELECT * FROM [nome_da_VIEW];</ul>
+       </li>
+        <li>Excluindo uma VIEW
+            <ul>DROP VIEW [nome_da_VIEW];</ul>
+        </li>
+    </p>
+É usual usar uma nomenclatura para as views onde o nome comece sempre com 'v_' estabelecendo que esta tabela se refere á uma view.<br /><br />Ao ser criada uma view é necessário sempre renomear os atributos que possuem o mesmo nome, caso não sejam renomeados a VIEW não será criada.
+</p>
+<h3>Índices</h3>
+<p>
+    São usados para otimizar processos de iteração e buscas, assiciando os dados à um indice, facilitando as pesquisas.
+    <h4>Criando um Indice</h4>
+    <p>
+        Temos duas maneiras para criar indices, uma diretamente na criação da tabela e outro após a criação.
+        <li>Durante a criação da tabela:
+            <ul>
+                CREATE TABLE [nomeDaTabela] (
+                Campo1 tipo(tamanho),
+                Campo2 tipo(tamanho),
+                INDEX(Campo1) );
+            </ul>
+        </li>
+        <li>Após a criação da tabela:
+            <ul>
+                CREATE INDEX [nomeDoIndice] 
+                ON [nomeDaTabela](Campo);
+            </ul>
+        </li>
+    </p>
+</p>
+<h3>Controle Transacional</h3>
+<p>Para se garantir a integridade do banco de dados é essencial a implementação do corntrole transacional, de modo que os principios ACID sejam sempre considerados na manipulação do banco.
+    <li>COMMIT e AUTOCOMMIT
+        <ul>
+        Por padrão o MySQL possui a instrução de AUTOCOMMIT setada como ativo, dessa maneira todas as transações são aplciadas automaticamente aos dados, neste caso, se alterarmos esse parêmetro para falso, todas as alterações deverão ser 'commitadas' para que sejam gravadas no banco. Para que seja feita a gravação das alterações nos casos onde o controle está como manual é utilizada a instrução COMMIT.<br />
+            SET AUTOCOMMIT=0; => Seta o commit para manual<br />
+            UPDATE Medicacao SET EnfermeiroCoren = 2222
+            WHERE Id = 1; => Realiza a alteração do dado.<br />
+            COMMIT; => Grava a alteração <br />
+        </ul>
+    </li>
+    <li>ROLLBACK
+        <ul>É utilizado para reverter alteração nos dados, nesse caso a reversão se aplica exclusivamente á manipulação de dados. Ele é utilizado associado à um SAVEPOINT.</ul>
+    </li>
+    <li>SAVEPOINT
+        <ul>É uma instrução que cria um ponto de restauração que pode ser utilizado pelo ROLLBACK para desfazer ações de alteração dos dados, este comando apenas funciona nos casos onde o AUTOCOMMIT está ativo.</ul>
+    </li>
+</p>
+<h2>Funções em bancos de dados.</h2>
+<p>
+    Funções são utilizadas para criação de cálculos e ações simples de modo que possam ser reutilizadas em momentos distintos, sem ser necessário a replicação da mesma sequencia de código em cada uma de suas aplicações.
+    <p>As funções são criadas em um sintaxe padrão conforme abaixo:<br />
+        CREATE FUNCTION nome_da_funcao (x tipo, y tipo)
+        RETURNS tipo
+        RETURN (função);
+    </p>
+    <li>SHOW FUNCTION STATUS;
+        <ul>Exibe todas as funções criadas no banco.</ul>
+    </li>
+    <li>SHOW CREATE FUNCTION nome_da_funcao;
+        <ul>Exibe a função indicada, seus detalhes e extrutura.</ul>
+    </li>
+    <li>DROP FUNCTION nome_da_funcao;
+        <ul>Exclui a função do banco.</ul>
+    </li>
+    Para a criação de uma função usamos a instrução CREATE para definir a criação e, após isso, damos um nome e os vaores de entradas pretendidos em x e y, assim como sus tipos e 
+</p>
+<h2>Procedimentos</h2>
+<p>Os procedimentos funcionam como uma função mas que podem, ou não, retornar algum valor. Neste caso são aplicados os mesmos principios da função.
+    <li>PROCEDURE
+        <ul>Instrução que define o uso de uma PROCEDURE no banco. Pode ser utilizado junto com CREATE para criação, SHOW para exibição e DROP para exclusão.</ul>
+    </li>
+    <li>CALL
+        <ul>Utilizado para se 'chamar' uma procedure dentro do banco.</ul>
+    </li>
+    <h3>Exemplo de Procedure</h3>
+    <p>
+        CREATE PROCEDURE proc_MediaExame (var_DisciplinaId int)<br />
+        SELECT AVG(fn_media(NotaP1, NotaP2)) AS “Média Exame”<br />
+        FROM Notas<br />
+        WHERE DisciplinaId = var_DisciplinaId<br />
+        AND fn_media(NotaP1, NotaP2) >= 4.0<br />
+        AND fn_media(NotaP1, NotaP2) <= 6.9);<br />
+        <br />
+        Esta função retorna, apartir de uma tabela com dados de alunos e notas, os valores de média onde haverá aplicação de exame.
+    </p>
+</p>
