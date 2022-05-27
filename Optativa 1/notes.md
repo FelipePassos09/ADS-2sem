@@ -8,3 +8,5 @@
 2. Por estar em uma região altamente tecnologica um alinhamento com as principais novidades é sempre bem visto, em especial no que diz respeito à questões como big-data, maschine e deep-learning, data science e, mais recentemente, process-minning.
 
 3. Estimulando o aprendizado continuo, a troca de experiencias e a comunicação fluida aliado à um estimulo do engajamento e da ação colaborativa.
+
+Empreendedorismo
